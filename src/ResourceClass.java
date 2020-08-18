@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-public class ResourceClass1
+public class ResourceClass
 {
 		private Integer a;
 

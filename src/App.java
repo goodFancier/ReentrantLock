@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2020. Artem Nikitin (https://github.com/goodFancier)
  *
@@ -15,28 +14,16 @@
  * limitations under the License.
  */
 
-import java.util.LinkedHashMap;
-
 public class App
 {
-		/**
-		 * 1. 10 20
-		 * 2. 20 10
-		 * <p>
-		 * <p>
-		 * 1. 10 10
-		 * 2. 20 20
-		 * 3. 10 20
-		 * 4. 20 10
-		 */
 		private void deadLockMethod()
 		{
-				ResourceClass1 resourceClass1 = new ResourceClass1();
-				ResourceClass1 resourceClass2 = new ResourceClass1();
+				ResourceClass resourceClass = new ResourceClass();
+				ResourceClass resourceClass2 = new ResourceClass();
 				Thread thread = new Thread(() -> {
-						synchronized(resourceClass1)
+						synchronized(resourceClass)
 						{
-								resourceClass1.setA(10);
+								resourceClass.setA(10);
 								try
 								{
 										Thread.sleep(1000);
@@ -49,7 +36,7 @@ public class App
 								{
 										resourceClass2.setA(30);
 								}
-								System.out.println(resourceClass1.getA());
+								System.out.println(resourceClass.getA());
 								System.out.println(resourceClass2.getA());
 						}
 				});
@@ -67,12 +54,12 @@ public class App
 								{
 										e.printStackTrace();
 								}
-								synchronized(resourceClass1)
+								synchronized(resourceClass)
 								{
-										resourceClass1.setA(20);
+										resourceClass.setA(20);
 								}
 								System.out.println(resourceClass2.getA());
-								System.out.println(resourceClass1.getA());
+								System.out.println(resourceClass.getA());
 						}
 				});
 				thread2.setDaemon(false);
